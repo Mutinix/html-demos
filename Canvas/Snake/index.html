@@ -4,19 +4,61 @@
 <head>
         <title>Learning the basics of canvas</title>
 
-        <script type="text/javascript" src="http://ajax.googleapis.com
-/ajax/libs/jquery/1/jquery.min.js"></script>
-
-        <script type="text/javascript">
-                $(document).ready(function() {
-
-                });
-        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
  
 <body>
         <canvas id="canvas" width="500" height="500">
-                
         </canvas>
+        
+        <script type="text/javascript">
+                $(document).ready(function() {
+                  
+                  //Canvas
+                  var canvas = $("#canvas")[0];
+                  var ctx = canvas.getContext("2d");
+                  var w = $("#canvas").width();
+                  var h = $("#canvas").height();
+                  
+                  
+                  //Paint canvas
+                  ctx.fillStyle = "white";
+                  ctx.fillRect(0, 0, w, h);
+                  ctx.strokeStyle = "black";
+                  ctx.strokeRect(0, 0, w, h);
+                  
+                  //Create snake
+                  var snake_array; //An array of cells to make up the snake
+                  create_snake();
+                  function create_snake()
+                  {
+                    var length = 5; //Length of the snake
+                    snake_array = [];
+                    
+                    for (var i = length - 1; i >= 0; i--)
+                    {
+                      snake_array.push({
+                        x: i,
+                        y: 0
+                      });
+                    }
+                  }
+                  
+                  //Paint Snake
+                  function paint()
+                  {
+                    for (var i = 0; i < snake_array.length; i++)
+                    {
+                      var c = snake_array[i];
+                      
+                      ctx.fillStyle = "blue";
+                      //Take each cell to be 10px wide
+                      ctx.fillRect(c.x*10, c.y*10, 10, 10);
+                    }
+                  }
+                  
+                  paint();
+                });
+        </script>
 </body>
 </html>
