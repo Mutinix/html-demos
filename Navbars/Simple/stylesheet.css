@@ -15,18 +15,19 @@ html, body, header, nav, ul, li, a
 ul
 {
   list-style: none;
-  background: #E3E3E3;
-  height: 40px;
+  background: #014062;
+  height: 53px;
 }
 
 li
 {
+  font-size:24px;
   float:left;
 }
 
 a
 {
-  color: #742341;
+  color: #CBA000;
   text-decoration: none;
   display: block;
   padding: 10px;
@@ -34,8 +35,8 @@ a
 
 li:hover
 {
-  background: #AEAEAE;
-  border-bottom: 3px solid #742341;
+  background: #025481;
+  border-bottom: 5px solid #CBA000;
 }
 
 #logo
