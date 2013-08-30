@@ -20,12 +20,9 @@
                   var w = $("#canvas").width();
                   var h = $("#canvas").height();
                   
-                  
-                  //Paint canvas
-                  ctx.fillStyle = "white";
-                  ctx.fillRect(0, 0, w, h);
-                  ctx.strokeStyle = "black";
-                  ctx.strokeRect(0, 0, w, h);
+                  //Cell width for easy control
+                  var cw = 10;
+                  var d = "down"; //default direction
                   
                   //Create snake
                   var snake_array; //An array of cells to make up the snake
@@ -47,17 +44,54 @@
                   //Paint Snake
                   function paint()
                   {
+                    
+                    //Repaint background everytime
+                    //Paint canvas
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(0, 0, w, h);
+                    ctx.strokeStyle = "black";
+                    ctx.strokeRect(0, 0, w, h);
+                    
+                    //Move snake here
+                    var nx = snake_array[0].x;
+                    var ny = snake_array[0].y;
+                    
+                    if (d == "right")
+                      nx++;
+                    else if (d == "left")
+                      nx--;
+                    else if (d == "up")
+                      ny--;
+                    else if (d == "down")
+                      ny++;
+                    
+                    var tail = snake_array.pop();
+                    tail.x = nx;
+                    tail.y = ny;
+                    snake_array.unshift(tail);
+                    
                     for (var i = 0; i < snake_array.length; i++)
                     {
                       var c = snake_array[i];
                       
-                      ctx.fillStyle = "blue";
                       //Take each cell to be 10px wide
-                      ctx.fillRect(c.x*10, c.y*10, 10, 10);
+                      ctx.fillStyle = "blue";
+                      ctx.fillRect(c.x*cw, c.y*cw, cw, cw);
+                      ctx.strokeStyle = "white";
+                      ctx.strokeRect(c.x*cw, c.y*cw, cw, cw);
                     }
                   }
                   
-                  paint();
+                  $(document).keydown(function(e){
+                    var key = e.which;
+                    if(key == "37") d = "left";
+                		else if(key == "38") d = "up";
+                		else if(key == "39") d = "right";
+                		else if(key == "40") d = "down";
+                  })
+                  
+                  //Set up game loop
+                  game_loop = setInterval(paint, 60);
                 });
         </script>
 </body>
