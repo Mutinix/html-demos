@@ -3,7 +3,24 @@ html, body, header, nav, ul, li, a
   margin: 0px;
   padding: 0px;
   border: 0px;
-  font-family:sans-serif;
+}
+
+@font-face {
+    font-family: 'pacificoregular';
+    src: url('pacifico-webfont.eot');
+    src: url('pacifico-webfont.eot?#iefix') format('embedded-opentype'),
+         url('pacifico-webfont.woff') format('woff'),
+         url('pacifico-webfont.ttf') format('truetype'),
+         url('pacifico-webfont.svg#pacificoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body
+{
+  background: #f4f1e5;
+  color: #544738;
+  font-family: 'pacificoregular', helvetica, sans-serif;
 }
 
 .group:after {
@@ -20,13 +37,28 @@ ul
 li
 {
   float:left;
+  font-size: 22px;
+  padding: 15px;
+  margin: 0px 10px;
 }
 
 a
 {
+  color: #544738;
   text-decoration: none;
   display: block;
-  padding: 10px;
+}
+
+li a:hover
+{
+  color: #7eb9be;
+  -webkit-transform: rotate(-5deg) scale(1.2);
+  -moz-transform: rotate(-5deg) scale(1.2);
+  -o-transform: rotate(-5deg) scale(1.2);
+  
+  -webkit-transition:All .5s ease;
+  -moz-transition:All .5s ease;
+  -o-transition:All .5s ease;
 }
 
 #logo
