@@ -37,3 +37,8 @@ li:hover
   background: #AEAEAE;
   border-bottom: 3px solid #742341;
 }
+
+#logo
+{
+  float: right;
+}
