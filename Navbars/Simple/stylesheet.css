@@ -1,11 +1,39 @@
-html, body, header, nav, ul
+html, body, header, nav, ul, li, a
 {
   margin: 0px;
   padding: 0px;
   border: 0px;
+  font-family:sans-serif;
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 ul
 {
   list-style: none;
+  background: #E3E3E3;
+  height: 40px;
+}
+
+li
+{
+  float:left;
+}
+
+a
+{
+  color: #742341;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+li:hover
+{
+  background: #AEAEAE;
+  border-bottom: 3px solid #742341;
 }
