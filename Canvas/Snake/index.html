@@ -8,6 +8,8 @@
 </head>
  
 <body>
+  
+  <h1 style="font-family: Helvetica">Snake - Gaurav</h1>
         <canvas id="canvas" width="500" height="500">
         </canvas>
         
@@ -33,6 +35,7 @@
                     d = "right";  //Default Direction
                     create_snake();
                     create_food();
+                    score = 0;
                     
                     //Set up game loop
                     if(typeof game_loop != "undefined")
@@ -59,8 +62,8 @@
                   function create_food()
                   {
                     food = {
-                      x: Math.random()*(w-cw)/cw,
-                      y: Math.random()*(h-cw)/cw,
+                      x: Math.round(Math.random()*(w-cw)/cw),
+                      y: Math.round(Math.random()*(h-cw)/cw),
                     }
                   }
                   
@@ -88,7 +91,7 @@
                     else if (d == "down")
                       ny++;
                       
-                    if(nx == -1 || nx == w/cw || ny == -1 || ny == h/cw)
+                    if(nx == -1 || nx == w/cw || ny == -1 || ny == h/cw || check_collision(nx, ny, snake_array))
                 		{
                       //Restart
                       init();
@@ -98,6 +101,7 @@
                     if (nx == food.x && ny == food.y)
                     {
                       var tail = {x: nx, y: ny};
+                      score++;
                       create_food();
                     }
                     else
@@ -115,6 +119,9 @@
                     }
                     
                     paint_cell(food.x, food.y);
+                    
+                    var score_text = "Score: " + score;
+                    ctx.fillText(score_text, 5, h-5);
                   }
                   
                   function paint_cell(x, y)
@@ -124,6 +131,16 @@
                     ctx.strokeStyle = "white";
                     ctx.strokeRect(x*cw, y*cw, cw, cw);
                   }
+                  
+                  function check_collision(x, y, array)
+                  {
+                		for(var i = 0; i < array.length; i++)
+                		{
+                			if(array[i].x == x && array[i].y == y)
+                  			return true;
+                		}
+                		return false;
+                	}
                   
                   $(document).keydown(function(e){
                     var key = e.which;
