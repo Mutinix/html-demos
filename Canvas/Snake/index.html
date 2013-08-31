@@ -4,7 +4,7 @@
 <head>
         <title>Learning the basics of canvas</title>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="jquery-1.9.1.min.js"></script>
 </head>
  
 <body>
@@ -22,11 +22,26 @@
                   
                   //Cell width for easy control
                   var cw = 10;
-                  var d = "down"; //default direction
+                  var d;
+                  var food;
                   
                   //Create snake
                   var snake_array; //An array of cells to make up the snake
-                  create_snake();
+                  
+                  function init()
+                  {
+                    d = "right";  //Default Direction
+                    create_snake();
+                    create_food();
+                    
+                    //Set up game loop
+                    if(typeof game_loop != "undefined")
+                      clearInterval(game_loop);
+                    game_loop = setInterval(paint, 60);
+                  }
+                  
+                  init();
+                  
                   function create_snake()
                   {
                     var length = 5; //Length of the snake
@@ -38,6 +53,14 @@
                         x: i,
                         y: 0
                       });
+                    }
+                  }
+                  
+                  function create_food()
+                  {
+                    food = {
+                      x: Math.random()*(w-cw)/cw,
+                      y: Math.random()*(h-cw)/cw,
                     }
                   }
                   
@@ -64,34 +87,52 @@
                       ny--;
                     else if (d == "down")
                       ny++;
+                      
+                    if(nx == -1 || nx == w/cw || ny == -1 || ny == h/cw)
+                		{
+                      //Restart
+                      init();
+                			return;
+                		}
                     
-                    var tail = snake_array.pop();
-                    tail.x = nx;
-                    tail.y = ny;
+                    if (nx == food.x && ny == food.y)
+                    {
+                      var tail = {x: nx, y: ny};
+                      create_food();
+                    }
+                    else
+                    {
+                      var tail = snake_array.pop();
+                      tail.x = nx;
+                      tail.y = ny; 
+                    }
                     snake_array.unshift(tail);
                     
                     for (var i = 0; i < snake_array.length; i++)
                     {
                       var c = snake_array[i];
-                      
-                      //Take each cell to be 10px wide
-                      ctx.fillStyle = "blue";
-                      ctx.fillRect(c.x*cw, c.y*cw, cw, cw);
-                      ctx.strokeStyle = "white";
-                      ctx.strokeRect(c.x*cw, c.y*cw, cw, cw);
+                      paint_cell(c.x, c.y);
                     }
+                    
+                    paint_cell(food.x, food.y);
+                  }
+                  
+                  function paint_cell(x, y)
+                  {
+                    ctx.fillStyle = "blue";
+                    ctx.fillRect(x*cw, y*cw, cw, cw);
+                    ctx.strokeStyle = "white";
+                    ctx.strokeRect(x*cw, y*cw, cw, cw);
                   }
                   
                   $(document).keydown(function(e){
                     var key = e.which;
-                    if(key == "37") d = "left";
-                		else if(key == "38") d = "up";
-                		else if(key == "39") d = "right";
-                		else if(key == "40") d = "down";
+                    if(key == "37" && d != "right") d = "left";
+                		else if(key == "38" && d != "down") d = "up";
+                		else if(key == "39" && d != "left") d = "right";
+                		else if(key == "40" && d != "up") d = "down";
                   })
                   
-                  //Set up game loop
-                  game_loop = setInterval(paint, 60);
                 });
         </script>
 </body>
