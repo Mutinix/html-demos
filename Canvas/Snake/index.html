@@ -8,8 +8,8 @@
 </head>
  
 <body>
-  
-  <h1 style="font-family: Helvetica">Snake - Gaurav</h1>
+  <center>
+  <h1 style="font-family: Helvetica">Snake - Gaurav </h1>
         <canvas id="canvas" width="500" height="500">
         </canvas>
         
@@ -121,6 +121,7 @@
                     paint_cell(food.x, food.y);
                     
                     var score_text = "Score: " + score;
+                    ctx.font = "20px sans-serif";
                     ctx.fillText(score_text, 5, h-5);
                   }
                   
@@ -152,5 +153,6 @@
                   
                 });
         </script>
+      </center>
 </body>
 </html>
