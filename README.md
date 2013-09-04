@@ -7,14 +7,10 @@ Canvas
 -------
 
 
-* Snake
-
-Uses HTML5's canvas tag along with Javascript to create a basic snake game.
+* Snake - Uses HTML5's canvas tag along with Javascript to create a basic snake game.
 
 
-* Trail
-
-Uses HTML5's canvas tag along with Javascript to create a light trail that follows the cursor.
+* Trail - Uses HTML5's canvas tag along with Javascript to create a light trail that follows the cursor.
 
 
 
